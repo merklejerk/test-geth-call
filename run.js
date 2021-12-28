@@ -12,7 +12,7 @@ const TARGET = ethjs.bufferToHex(crypto.randomBytes(20));
 const CALL_DATA = ethjs.bufferToHex(ethjs.keccak256(Buffer.from('returnsOne()')).slice(0, 4));
 
 (async () => {
-    const c = new Client.http(ENV.NODE_RPC);
+    const c = new (ENV.NODE_RPC.startsWith('https') ? Client.https : Client.http)(ENV.NODE_RPC);
     const tx = {
         from: VITALIK,
         to: TARGET,
